@@ -1,17 +1,12 @@
-import random
+import pandas
 import json
 
-with open("resources/graph.json", "r", encoding="utf-8") as f:
-    data = json.load(f)
+df : pandas.DataFrame = pandas.read_csv("src/resources/adyacencia.csv", sep=';', header=0)
+print(list(df.columns))
 
-keys = list(data.keys())
-graph = {}
+index_not_zero = [ list(df[df[name] != 0].index) for name in list(df.columns)]
+print("\n".join([ str(e) +"," for e in index_not_zero]))
 
-for k in keys:
-    graph[k] = random.sample([x for x in keys if x != k], random.randint(1, 15))
 
-for node, connection in graph.items():
-    print(f'"{node}": {str(connection).replace("'", '"')},')
-
-with open("resources/filled-graph.json", "w", encoding="utf-8") as f:
-    json.dump(graph, f, indent=2)
+with open("src/resources/adjacency.json", "w", encoding="UTF-8") as f:
+    json.dump(index_not_zero , f, ensure_ascii=False, indent=2)
