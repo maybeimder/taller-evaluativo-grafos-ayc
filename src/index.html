@@ -4,13 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script defer src="index.js" ></script>
+    <script defer type="module" src="index.js" ></script>
+    <script type="module" src="resources/powerIterationMethod.js"></script>
+    <script type="module" src="resources/pageRankMethod.js"></script>
     <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <title>Grafo Interacciones Significativas</title>
 </head>
 
 <body>
+    <div id="loader">
+        <div class="spinner"></div>
+        <span>Cargando...</span>
+    </div>
+
+    <div class="floating-menu" id="menu">
+        <button id="expand-btn">—</button>
+        <div class="content collapsed">
+            <input type="text" placeholder=" Buscar estudiante por nombre" id="search-txtarea">
+            <h2>Ranking estudiantes con mas conexiones</h2>
+            <ul id="ranking-list">
+            </ul>
+        </div>
+    </div>
+    
     <div id="graph-container"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menu = document.querySelector('.content');
+            const btn = document.getElementById('expand-btn');
+            const draggable = document.getElementById('menu');
+
+            let offsetX = 0, offsetY = 0, isDragging = false;
+
+            btn.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                offsetX = e.clientX - draggable.offsetLeft;
+                offsetY = e.clientY - draggable.offsetTop;
+                btn.style.cursor = 'grabbing';
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                draggable.style.left = `${e.clientX - offsetX}px`;
+                draggable.style.top = `${e.clientY - offsetY}px`;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+                btn.style.cursor = 'grab';
+            });
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('collapsed');
+            });
+        });
+    </script>
 </body>
 
 </html>

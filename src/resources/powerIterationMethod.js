@@ -1,14 +1,12 @@
 //Metodo principal para centralidad por valores propios 
-function powerIterationMethod (initialVector, adjMatrix, iterations) {
+export function powerIterationMethod (initialVector, adjMatrix, iterations) {
     var nextVector = initialVector
     //Aproximación por número de iteraciones 
     for (let i = 0; i < iterations; i++){
-        console.log("Iteración " + i);
-        nextVector = matrixMultiply(nextVector, adjMatrix); //vector aproximado = (vector*Matriz) / ||vector*Matriz||
+        nextVector = matrixMultiply(adjMatrix, nextVector); //vector aproximado = (vector*Matriz) / ||vector*Matriz||
         for (let j = 0; j < nextVector[0].length; j++){
             nextVector[0][j] /= normalize(nextVector);
         }
-        console.log("vector propio: " + nextVector + "; m: " + nextVector.length + "; n: " + nextVector[0].length);
     }
     return nextVector;
 }
