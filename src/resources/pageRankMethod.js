@@ -1,4 +1,4 @@
-// Metodo pirncipal para realizar el algoritmo pageRank
+// Metodo principal para realizar el algoritmo pageRank
 function pageRankMethod(initialVector, adjList, iterations, dampingFactor) {
     var pageRankVector = initialVector
     const sthocasticTransitionMatrix = createSthocasticTransitionMatrix(adjList);
