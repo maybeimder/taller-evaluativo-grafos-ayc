@@ -1,10 +1,8 @@
-// Metodo pirncipal para realizar el algoritmo pageRank
+// Metodo principal para realizar el algoritmo pageRank
 export function pageRankMethod(initialVector, adjList, iterations, dampingFactor) {
     var pageRankVector = initialVector
     const sthocasticTransitionMatrix = createSthocasticTransitionMatrix(adjList);
-    console.log(sthocasticTransitionMatrix)
     for (let iteration = 0; iteration < iterations; iteration++) {
-        console.log(pageRankVector)
         pageRankVector = matrixVectorMultiply(pageRankVector, sthocasticTransitionMatrix);
         for (let element = 0; element < pageRankVector.length; element++) {
             pageRankVector[element] = pageRankVector[element] * dampingFactor + ((1 - dampingFactor) / pageRankVector.length);
@@ -41,7 +39,6 @@ function normalize(vector) {
 //Metodo para calcular la multiplicación de el vector con la matriz
 function matrixVectorMultiply(A, B) {
     const colsA = A.length;
-    console.log(B)
     const colsB = B[0].length;
 
     let result = Array(colsB).fill(0);
